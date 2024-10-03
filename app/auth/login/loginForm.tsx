@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
 import { loginFormSchema } from './validator';
-import { LoginForm } from './validator';
+import type { LoginForm } from './validator';
 import { useEffect } from 'react';
 import { useRef } from 'react';
 import Link from 'next/link';
