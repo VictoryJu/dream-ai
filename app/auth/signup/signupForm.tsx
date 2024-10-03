@@ -6,7 +6,8 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from '@/component
 import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { SignupForm, signupFormSchema } from './validator';
+import type { SignupForm } from './validator';
+import { signupFormSchema } from './validator';
 
 const SignupForm = () => {
   const form = useForm<SignupForm>({
