@@ -46,10 +46,16 @@ const config: Config = {
           main: '#7879F1',
           300: '#FBFBFE',
         },
+        red: {
+          DEFAULT: 'hsl(var(--red))',
+          foreground: 'hsl(var(--red-foreground))',
+          warning: '#FF6969',
+        },
         gray: {
           DEFAULT: 'hsl(var(--gray))',
           foreground: 'hsl(var(--gray-foreground))',
           main: '#F6F6F6',
+          100: '#EAEAEA',
           200: '#C7C7C7',
           400: '#565656',
         },
