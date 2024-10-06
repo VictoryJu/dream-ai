@@ -1,11 +1,7 @@
 import LoginForm from './loginForm';
 
 const page = () => {
-  return (
-    <div>
-      <LoginForm />
-    </div>
-  );
+  return <LoginForm />;
 };
 
 export default page;

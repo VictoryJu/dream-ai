@@ -8,10 +8,14 @@ import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
 import { loginFormSchema } from './validator';
 import type { LoginForm } from './validator';
-import { useEffect } from 'react';
-import { useRef } from 'react';
 import Link from 'next/link';
 import { Checkbox } from '@/components/ui/checkbox';
+import { loginAction } from './actions';
+import { useFormState } from 'react-dom';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+
+export const initialState: { message: string; error: string } = { message: '', error: '' };
 
 const LoginForm = () => {
   const form = useForm<LoginForm>({
@@ -24,26 +28,25 @@ const LoginForm = () => {
   });
 
   const submitButtonDisabled = form.formState.isSubmitting || !form.formState.isValid;
-
-  const onSubmit = (values: LoginForm) => {
-    console.log(values);
-  };
-
-  const telInputRef = useRef<HTMLInputElement>(null);
+  const [state, formAction] = useFormState(loginAction, initialState);
+  const router = useRouter();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      telInputRef.current?.focus();
-    }, 100);
+    if (state.message === '로그인 성공') {
+      router.push('/main');
+    } else if (state.error?.length > 0) {
+      form.setError('tel', { message: '전화번호 형식이 올바르지 않습니다' });
+      form.setError('password', { message: '전화번호 또는 비밀번호가 일치하지 않습니다' });
+    }
+  }, [state, router, form]);
 
-    return () => clearTimeout(timer);
-  }, []);
+  const [keepLogin, setKeepLogin] = useState(false);
 
   return (
     <div className="min-w-[350px]">
       <div className="text-[40px] text-gray-400 font-bold mb-8">로그인</div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form action={formAction} className="space-y-8">
           <FormField
             control={form.control}
             name="tel"
@@ -51,7 +54,7 @@ const LoginForm = () => {
               <FormItem>
                 <AuthFormLabel>전화번호</AuthFormLabel>
                 <FormControl>
-                  <Input type="tel" placeholder="(-) 제외하고 입력해주세요" {...field} />
+                  <Input inputMode="tel" type="tel" placeholder="(-) 제외하고 입력해주세요" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -65,15 +68,20 @@ const LoginForm = () => {
                 <FormItem>
                   <AuthFormLabel>비밀번호</AuthFormLabel>
                   <FormControl>
-                    <Input placeholder="비밀번호를 입력해주세요" {...field} />
+                    <Input type="password" placeholder="비밀번호를 입력해주세요" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <div className="flex items-center gap-2 mt-2">
-              <Checkbox />
-              <div className="text-gray-400 text-[16px] font-medium">로그인 유지</div>
+              <Checkbox checked={keepLogin} />
+              <div
+                onClick={() => setKeepLogin(!keepLogin)}
+                className="text-gray-400 text-[16px] font-medium cursor-pointer"
+              >
+                로그인 유지
+              </div>
             </div>
           </div>
           <Button disabled={submitButtonDisabled} className="w-full h-[52px] rounded-[10px] text-lg" type="submit">
