@@ -8,6 +8,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import type { SignupForm } from './validator';
 import { signupFormSchema } from './validator';
+import { useState } from 'react';
+import { useModalStore } from '@/app/stores/modal-store';
+import { SignupTextModal } from './(modal)/signup-modal';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 const SignupForm = () => {
   const form = useForm<SignupForm>({
@@ -19,11 +24,13 @@ const SignupForm = () => {
       password: '',
       confirmPassword: '',
       email: '',
+      type: 'group',
     },
   });
 
   const onSubmit = (values: SignupForm) => {
     console.log(values);
+    openSignupDescriptionModal();
   };
 
   const handleSendVerification = async () => {
@@ -38,11 +45,75 @@ const SignupForm = () => {
   const submitButtonDisabled = form.formState.isSubmitting || !form.formState.isValid;
   const isTelValid = telField.isDirty && !telField.invalid;
 
+  const [userType, setUserType] = useState<'individual' | 'group' | null>('group');
+  const { open } = useModalStore((state) => state);
+  const openSignupWarningModal = () => {
+    open(<SignupTextModal title="선택 불가" description="개인 회원은 아직 준비중입니다." />);
+  };
+
+  const router = useRouter();
+
+  const openSignupDescriptionModal = () => {
+    open(
+      <SignupTextModal
+        title={
+          <div className="flex gap-1">
+            <span>회원가입</span>
+            <span className="text-purple-main">요청완료</span>
+          </div>
+        }
+        description={
+          <div>
+            <div>선생님의 승인을 기다려주세요!</div>
+            <div>승인시, 알림문자나 카톡을 드리겠습니다.</div>
+          </div>
+        }
+        closeCallback={() => {
+          router.push('/auth/login');
+        }}
+      />,
+    );
+  };
+
   return (
     <div className="min-w-[350px]">
       <div className="text-[40px] text-gray-400 font-bold mb-8">회원가입</div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <FormField
+            control={form.control}
+            name="type"
+            render={({ field }) => (
+              <FormItem>
+                <AuthFormLabel required>구분</AuthFormLabel>
+                <FormControl>
+                  <div className="flex space-x-2">
+                    <Button
+                      className="flex-1 h-[52px] text-[16px] font-bold"
+                      type="button"
+                      variant={userType === 'individual' ? 'default' : 'border'}
+                      onClick={openSignupWarningModal}
+                    >
+                      개인
+                    </Button>
+
+                    <Button
+                      className="flex-1 h-[52px] text-[16px] font-bold"
+                      type="button"
+                      variant={userType === 'group' ? 'default' : 'border'}
+                      onClick={() => {
+                        setUserType('group');
+                        field.onChange('group');
+                      }}
+                    >
+                      단체
+                    </Button>
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <FormField
             control={form.control}
             name="username"
@@ -64,7 +135,7 @@ const SignupForm = () => {
                 <AuthFormLabel required>전화번호</AuthFormLabel>
                 <FormControl>
                   <div className="flex gap-2 items-center">
-                    <Input type="tel" className="w-auto" placeholder="(-) 제외하고 입력해주세요" {...field} />
+                    <Input type="tel" className="flex-1" placeholder="(-) 제외하고 입력해주세요" {...field} />
                     <Button
                       className="h-[52px] p-[14px] w-[100px] text-[16px] font-medium rounded-[5px]"
                       type="button"
@@ -124,6 +195,11 @@ const SignupForm = () => {
           </Button>
         </form>
       </Form>
+      <div className="text-center mt-7">
+        <Link href="/auth/login" className="cursor-pointer text-purple-main text-[16px] font-medium ">
+          로그인으로 돌아가기
+        </Link>
+      </div>
     </div>
   );
 };

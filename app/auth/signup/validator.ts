@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 export const signupFormSchema = z
   .object({
+    type: z.enum(['group', 'individual']),
     username: z.string().min(2, {
       message: '이름은 2글자 이상 입력해주세요.',
     }),
