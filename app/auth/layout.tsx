@@ -32,7 +32,7 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
           </div>
         </div>
       </div>
-      <div className="flex flex-1 justify-center items-center">{children}</div>
+      <div className="flex-1">{children}</div>
     </section>
   );
 };
