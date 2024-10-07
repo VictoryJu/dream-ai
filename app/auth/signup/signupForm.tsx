@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 import type { SignupForm } from './validator';
 import { signupFormSchema } from './validator';
 import { useState } from 'react';
-import { useModalStore } from '@/app/stores/modal-store';
+import { useModalStore } from '@/lib/stores/modal-store';
 import { SignupTextModal } from './(modal)/signup-modal';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';

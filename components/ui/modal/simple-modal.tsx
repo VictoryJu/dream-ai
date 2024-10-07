@@ -1,4 +1,4 @@
-import { useOutsideClick } from '@/app/hooks/useOutsideclick';
+import { useOutsideClick } from '@/lib/hooks/useOutsideclick';
 import React, { useRef } from 'react';
 
 interface SimpleModalProps {

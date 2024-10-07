@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Button } from '@/components/ui/button';
-import { useModalStore } from '@/app/stores/modal-store';
+import { useModalStore } from '@/lib/stores/modal-store';
 import SimpleModal from '@/components/ui/modal/simple-modal';
 
 interface SignupTextModalProps {

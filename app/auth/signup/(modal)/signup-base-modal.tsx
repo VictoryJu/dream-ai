@@ -1,5 +1,5 @@
 'use client';
-import { useModalStore } from '@/app/stores/modal-store';
+import { useModalStore } from '@/lib/stores/modal-store';
 import { useEffect } from 'react';
 
 export const SignupBaseModal = () => {
