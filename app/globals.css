@@ -7,10 +7,80 @@ body {
   height: 100vh;
 }
 
+li {
+  cursor: pointer;
+  transition: color 0.3s;
+  &:hover {
+    color: var(--purple-main);
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.swiper-slide {
+  width: 460px !important;
+}
+
+.swiper-slide-shadow-left {
+  border-radius: 4px !important;
+  background-color: rgba(211, 211, 211, 0.35);
+}
+
+.swiper-slide-shadow-right {
+  border-radius: 4px !important;
+  background-color: rgba(211, 211, 211, 0.35);
+}
+
+/* .swiper-slide-active {
+  box-shadow:
+    0px 7px 35px 4px rgba(32, 31, 49, 0.2),
+    0px 0px 10px 0px rgba(42, 42, 48, 0.25) inset !important;
+} */
+
+.swiper-divider {
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0) 17.39%, rgba(26, 29, 55, 0.35) 57.72%, rgba(0, 0, 0, 0) 101.84%);
+}
+
+.swiper-button-next-custom,
+.swiper-button-prev-custom {
+  width: 58px;
+  height: 58px;
+  background-color: rgba(120, 121, 241, 0.1); /* purple-main 색상 */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  z-index: 99;
+}
+
+.swiper-button-next-custom:active,
+.swiper-button-prev-custom:active {
+  background-color: rgba(120, 121, 241, 1); /* 호버 시 배경색 변경 */
+}
+
+.swiper-button-next-custom:active svg,
+.swiper-button-prev-custom:active svg {
+  stroke: white !important; /* 클릭 시 SVG의 stroke 색상 변경 */
+}
+
+.swiper-pagination {
+  bottom: -62px !important;
+}
+
+.swiper-pagination-bullet {
+  background-color: rgba(120, 121, 241, 1) !important;
+}
+
+.swiper-pagination-bullet-active {
+  transition: width 0.3s ease;
+  background-color: var(--purple-main) !important;
+  width: 37px !important;
+  border-radius: 20px !important;
 }
 
 @layer base {
@@ -40,6 +110,7 @@ body {
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    --purple-main: #7879f1;
   }
   .dark {
     --background: 0 0% 3.9%;
