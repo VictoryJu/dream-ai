@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
-import Header from '@/components/layouts/header';
+import ConditionalHeader from '@/components/layouts/conditinal-header';
 
 const pretendard = localFont({
   src: [
@@ -42,7 +42,7 @@ export default function RootLayout({
   return (
     <html lang="ko" className={`${pretendard.variable}`}>
       <body>
-        <Header />
+        <ConditionalHeader />
         {children}
       </body>
     </html>

@@ -8,7 +8,7 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
     <section className="flex justify-between bg-purple-300 h-full">
       <div
         className="w-[55%] bg-cover bg-center bg-no-repeat relative"
-        style={{ backgroundImage: 'url("/auth-main-image.webp")' }}
+        style={{ backgroundImage: 'url("/images/auth/auth-main-image.webp")' }}
         role="img"
         aria-label="auth-logo"
       >
