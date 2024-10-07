@@ -1,9 +1,15 @@
-import { Button } from '@/components/ui/button';
+import Book from './(main)/@book/book';
+import Document from './(main)/@document/document';
+import OtherBook from './(main)/@other-book/other-book';
 
-export default function Home() {
+const Home = () => {
   return (
-    <div>
-      <Button>버튼</Button>
-    </div>
+    <main>
+      <Book />
+      <Document />
+      <OtherBook />
+    </main>
   );
-}
+};
+
+export default Home;
