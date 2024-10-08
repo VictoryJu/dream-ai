@@ -27,9 +27,8 @@ const Document = () => {
       id: 3,
       description: (
         <div>
-          <div>AI를 활용해 나의 글과 적합한</div>
-          <div>이미지를 생성해 동화책을</div>
-          <div>완성하세요!</div>
+          <div>어울리는 이미지를 생성해서 </div>
+          <div>동화책을 완성하세요!</div>
         </div>
       ),
       imageUrl: '/images/main/document/book.png',

@@ -1,6 +1,6 @@
-import Book from './(main)/@book/book';
-import Document from './(main)/@document/document';
-import OtherBook from './(main)/@other-book/other-book';
+import Book from './(main)/@book/page';
+import Document from './(main)/@document/page';
+import OtherBook from './(main)/@other-book/page';
 
 const Home = () => {
   return (
