@@ -6,8 +6,9 @@ interface SimpleModalProps {
   open: boolean;
   onClose: () => void;
   overlay?: boolean;
+  className?: string;
 }
-const SimpleModal = ({ children, open, onClose, overlay = true }: SimpleModalProps) => {
+const SimpleModal = ({ children, open, onClose, overlay = true, className }: SimpleModalProps) => {
   const modalRef = useRef<HTMLDivElement>(null);
   useOutsideClick(modalRef, onClose);
 
@@ -18,7 +19,7 @@ const SimpleModal = ({ children, open, onClose, overlay = true }: SimpleModalPro
       {overlay && <Overlay />}
       <div
         ref={modalRef}
-        className="absolute w-[390px] bg-white rounded-[10px] py-[30px] px-[40px] left-[50%] top-[50%] z-50 grid max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]"
+        className={`absolute w-[390px] bg-white rounded-[10px] py-[30px] px-[40px] left-[50%] top-[50%] z-50 grid max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] ${className}`}
       >
         {children}
       </div>
@@ -27,7 +28,7 @@ const SimpleModal = ({ children, open, onClose, overlay = true }: SimpleModalPro
 };
 
 const Overlay = () => {
-  return <div className="absolute w-full h-full inset-0 bg-black/40 z-10"></div>;
+  return <div className="absolute w-full h-full inset-0 bg-black-main/40 z-10"></div>;
 };
 
 interface ContentProps {

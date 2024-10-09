@@ -6,7 +6,7 @@ import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import ArrowIcon from '../../../components/ui/icons/arrow-icon';
+import ArrowIcon from '../../ui/icons/arrow-icon';
 
 const BookCarousel = () => {
   const books = [
