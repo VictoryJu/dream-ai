@@ -14,6 +14,7 @@ import { loginAction } from './actions';
 import { useFormState } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { authStore } from '@/lib/stores/auth-store';
 
 export const initialState: { message: string; error: string } = { message: '', error: '' };
 
@@ -30,12 +31,16 @@ const LoginForm = () => {
   const submitButtonDisabled = form.formState.isSubmitting || !form.formState.isValid;
   const [state, formAction] = useFormState(loginAction, initialState);
   const router = useRouter();
+  const { setTel } = authStore();
 
   useEffect(() => {
-    if (state.message === '로그인 성공') {
-      router.push('/main');
-    } else if (state.error?.length > 0) {
-      form.setError('tel', { message: '전화번호 형식이 올바르지 않습니다' });
+    if (state.message === 'SUCCESS') {
+      if (keepLogin) {
+        setTel(form.getValues('tel'));
+      }
+      router.push('/');
+    } else if (state.error) {
+      form.setError('tel', { message: '가입된 전화번호인지 확인해주세요' });
       form.setError('password', { message: '전화번호 또는 비밀번호가 일치하지 않습니다' });
     }
   }, [state, router, form]);
@@ -90,7 +95,7 @@ const LoginForm = () => {
         </form>
       </Form>
       <div className="text-center mt-7">
-        <Link href="/auth/signup" className="cursor-pointer text-purple-main text-[16px] font-medium ">
+        <Link href="/auth/signup" className="cursor-pointer text-purple-main text-[16px] font-medium hover:underline ">
           회원가입
         </Link>
       </div>

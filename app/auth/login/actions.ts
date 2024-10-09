@@ -1,6 +1,6 @@
 'use server';
 
-import { initialState } from './loginForm';
+import { initialState } from './login-form';
 import { loginFormSchema } from './validator';
 
 export const loginAction = async (prevState: typeof initialState, formData: FormData): Promise<typeof initialState> => {
@@ -15,19 +15,18 @@ export const loginAction = async (prevState: typeof initialState, formData: Form
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
       method: 'POST',
-      body: JSON.stringify({ tel, password }),
+      body: JSON.stringify({ userName: tel, password }),
       headers: {
         'Content-Type': 'application/json',
       },
     });
+    console.log(await res.json());
 
     if (!res.ok) {
       return { error: '전화번호 또는 비밀번호가 일치하지 않습니다.', message: '' };
     }
 
-    const data = await res.json();
-
-    return { message: data.message, error: '' };
+    return { message: 'SUCCESS', error: '' };
   } catch (error) {
     if (error instanceof Error) {
       return { error: error.message, message: '' };
