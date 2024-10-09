@@ -1,7 +1,7 @@
 import { ApiClientOptions, ApiError, ApiResponse } from '../types/instance';
 
 const apiClient = async <T>(url: string, options: ApiClientOptions = {}): Promise<T> => {
-  const { baseUrl = process.env.NEXT_PUBLIC_API_URL, params, ...fetchOptions } = options;
+  const { baseUrl = '/api', params, ...fetchOptions } = options;
 
   const queryParams = params ? '?' + new URLSearchParams(params).toString() : '';
 
@@ -16,7 +16,9 @@ const apiClient = async <T>(url: string, options: ApiClientOptions = {}): Promis
       },
     });
 
-    const responseData: ApiResponse<T> = await response.json();
+    console.log(response);
+    // const responseData: ApiResponse<T> = (await response.json());
+    const responseData = { data: await response, message: '', errors: { message: '' } };
 
     if (!response.ok || responseData.message === 'FAILURE') {
       throw new ApiError(responseData.errors?.message || 'API request failed', response.status, {
@@ -24,7 +26,7 @@ const apiClient = async <T>(url: string, options: ApiClientOptions = {}): Promis
       });
     }
 
-    return responseData.data as T;
+    return { data: responseData, message: 'SUCCESS' } as T;
   } catch (error) {
     if (error instanceof ApiError) {
       throw error;
