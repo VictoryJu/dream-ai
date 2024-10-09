@@ -54,6 +54,12 @@ const config: Config = {
           foreground: 'hsl(var(--red-foreground))',
           warning: '#FF6969',
         },
+        green: {
+          DEFAULT: 'hsl(var(--green))',
+          foreground: 'hsl(var(--green-foreground))',
+          success: '#67B472',
+          main: '#00FF00',
+        },
         black: {
           DEFAULT: 'hsl(var(--black))',
           foreground: 'hsl(var(--black-foreground))',
