@@ -18,6 +18,14 @@ const nextConfig = {
       },
     },
   },
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'http://cndowy24.cafe24.com/api/:path*',
+      },
+    ];
+  },
 };
 
 export default nextConfig;
