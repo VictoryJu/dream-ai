@@ -23,4 +23,16 @@ export const signup = ({
     body: JSON.stringify({ userId, userName, password, realName, tel, userRole, storyId }),
   });
 
+export const getPhoneVerification = (tel: string): Promise<LoginResponseType> =>
+  apiClient<LoginResponseType>('/auth/phone-verifications', {
+    method: 'POST',
+    body: JSON.stringify({ userName: tel }),
+  });
+
+export const postPhoneVerification = (code: string): Promise<LoginResponseType> =>
+  apiClient<LoginResponseType>('/auth/phone-verifications/verify', {
+    method: 'POST',
+    body: JSON.stringify({ code }),
+  });
+
 export const fetchProfile = (): Promise<LoginResponseType> => apiClient<LoginResponseType>('/auth/profile');
