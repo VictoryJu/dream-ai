@@ -21,7 +21,7 @@ export const SignupTextModal = ({ title, description, overlay = true, closeCallb
 
   return (
     <>
-      <SimpleModal open={isOpen} onClose={handleClose} overlay={overlay}>
+      <SimpleModal className="animate-fadeIn" open={isOpen} onClose={handleClose} overlay={overlay}>
         <SimpleModal.Content>
           {title && <SimpleModal.Title>{title}</SimpleModal.Title>}
           {description && <SimpleModal.Description>{description}</SimpleModal.Description>}
