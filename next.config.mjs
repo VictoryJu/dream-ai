@@ -22,7 +22,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: 'http://cndowy24.cafe24.com/api/:path*',
+        destination: 'https://cndowy24.cafe24.com/api/:path*',
       },
     ];
   },

@@ -7,12 +7,9 @@ export const postAction = async (code: string) => {
       body: JSON.stringify({ code }),
       headers: {
         'Content-Type': 'application/json',
-        'Cookie': 'connect.sid=s%3A1234567890abcdef',
       },
       credentials: 'include',
     });
-
-    console.log(response);
 
     if (response.status >= 400) {
       return { error: '올바르지 않은 인증 코드 입니다.', message: '' };
@@ -35,12 +32,9 @@ export const getAction = async (tel: string) => {
       body: JSON.stringify({ userName: tel }),
       headers: {
         'Content-Type': 'application/json',
-        'Cookie': 'connect.sid=s%3A1234567890abcdef',
       },
       credentials: 'include',
     });
-
-    console.log(response);
 
     if (response.status >= 400) {
       return { error: '올바르지 않은 전화번호 입니다.', message: '' };
