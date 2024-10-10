@@ -2,11 +2,11 @@ import { Button } from '@/components/ui/button';
 import { AuthFormLabel } from '@/components/ui/custom/auth-form-label';
 import { FormControl, FormDescription, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { SignupForm } from '../validator';
 import { useTimer } from '@/lib/hooks/useTimer';
-import { getPhoneVerification, postPhoneVerification } from '@/app/services/apis/auth';
+import { usePhoneVerification } from '@/app/services/queries/auth';
 
 interface VerifyFieldProps {
   form: UseFormReturn<SignupForm>;
@@ -23,19 +23,21 @@ const PhoneField = ({ form }: VerifyFieldProps) => {
 
   const { isFinished, start, reset, formatTime } = useTimer({ initialTime: 300 });
 
-  const [isGetPhoneVerificationSuccess, setIsGetPhoneVerificationSuccess] = useState(false);
+  const {
+    mutateAsync: getPhoneVerification,
+    isPending: isGetPhoneVerificationPending,
+    isSuccess: isGetPhoneVerificationSuccess,
+  } = usePhoneVerification('get');
+  const { mutateAsync: postPhoneVerification, isPending: isPostPhoneVerificationPending } =
+    usePhoneVerification('post');
 
   const handleGetPhoneVerification = async (tel: string) => {
     try {
-      const res = await getPhoneVerification(tel);
-      if (res.message === 'SUCCESS') {
-        setIsGetPhoneVerificationSuccess(true);
-        clearCodeValue();
-        clearCodeError();
-        start();
-      }
+      await getPhoneVerification(tel);
+      clearCodeValue();
+      clearCodeError();
+      start();
     } catch (e) {
-      console.log(e);
       form.setError('tel', { message: '전화번호를 확인해주세요.' });
     }
   };
@@ -43,13 +45,10 @@ const PhoneField = ({ form }: VerifyFieldProps) => {
   const handlePostPhoneVerification = useCallback(
     async (code: string) => {
       try {
-        const res = await postPhoneVerification(code);
-        if (res.message === 'SUCCESS') {
-          form.setValue('codeSuccess', true);
-          clearCodeError();
-        }
+        await postPhoneVerification(code);
+        form.setValue('codeSuccess', true);
+        clearCodeError();
       } catch (e) {
-        console.log(e);
         form.setError('code', { message: '인증번호가 일치하지 않습니다.' });
       } finally {
         reset();
@@ -94,6 +93,7 @@ const PhoneField = ({ form }: VerifyFieldProps) => {
                   onClick={() => {
                     handleGetPhoneVerification(field.value);
                   }}
+                  isLoading={isGetPhoneVerificationPending}
                 >
                   {isGetPhoneVerificationSuccess ? '재발송' : '인증번호'}
                 </Button>
@@ -125,6 +125,7 @@ const PhoneField = ({ form }: VerifyFieldProps) => {
                     className="h-[52px] p-[14px] w-[100px] text-[16px] font-medium rounded-[5px]"
                     type="button"
                     disabled={form.getValues('code').length !== 6}
+                    isLoading={isPostPhoneVerificationPending}
                     onClick={() => {
                       handlePostPhoneVerification(field.value);
                     }}
@@ -135,13 +136,13 @@ const PhoneField = ({ form }: VerifyFieldProps) => {
               </FormControl>
               {!form.formState.errors.code && !isFinished && (
                 <FormDescription>
-                  <div
+                  <span
                     className={`flex gap-2 items-center text-[14px] font-medium ${
                       codeSuccess ? 'text-green-success' : 'text-purple-main'
                     }`}
                   >
-                    <span>{codeSuccess ? '인증이 완료되었습니다' : `인증번호를 입력해주세요 ${formatTime()}`}</span>
-                  </div>
+                    {codeSuccess ? '인증이 완료되었습니다' : `인증번호를 입력해주세요 ${formatTime()}`}
+                  </span>
                 </FormDescription>
               )}
               <FormMessage />
