@@ -14,7 +14,7 @@ const OtherBookCard = ({ imageUrl, title, author }: OtherBookCardProps) => {
           src={imageUrl}
           alt="book-thumbnail"
           fill
-          objectFit="cover"
+          style={{ objectFit: 'cover' }}
           quality={100}
         />
       </div>
