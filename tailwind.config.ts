@@ -10,7 +10,9 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: 'hsl(var(--background))',
+        background: {
+          DEFAULT: 'hsl(var(--background))',
+        },
         foreground: 'hsl(var(--foreground))',
         card: {
           DEFAULT: 'hsl(var(--card))',
@@ -73,6 +75,7 @@ const config: Config = {
           foreground: 'hsl(var(--gray-foreground))',
           black: '#1B1D1F',
           main: '#F6F6F6',
+          border: '#AEAFBB',
           100: '#EAEAEA',
           200: '#C7C7C7',
           400: '#565656',
@@ -111,6 +114,10 @@ const config: Config = {
       animation: {
         scaleUp: 'scaleUp 0.5s ease-in-out forwards',
         fadeIn: 'fadeIn 0.5s ease-in-out forwards',
+      },
+
+      height: {
+        header: '120px',
       },
 
       transitionProperty: {
