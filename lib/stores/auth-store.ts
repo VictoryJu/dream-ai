@@ -1,18 +1,18 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 interface AuthStore {
-  tel: string;
-  setTel: (tel: string) => void;
+  globalTel: string;
+  setGlobalTel: (tel: string) => void;
 }
 
 export const authStore = create<AuthStore>()(
   persist(
     (set) => ({
-      tel: '',
-      setTel: (tel: string) => set({ tel }),
+      globalTel: '',
+      setGlobalTel: (tel: string) => set({ globalTel: tel }),
     }),
     {
-      name: 'auth',
+      name: 'auth-store',
       storage: createJSONStorage(() => localStorage),
     },
   ),

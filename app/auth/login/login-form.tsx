@@ -31,12 +31,12 @@ const LoginForm = () => {
   const submitButtonDisabled = form.formState.isSubmitting || !form.formState.isValid;
   const [state, formAction] = useFormState(loginAction, initialState);
   const router = useRouter();
-  const { setTel } = authStore();
+  const { setGlobalTel } = authStore();
 
   useEffect(() => {
     if (state.message === 'SUCCESS') {
       if (keepLogin) {
-        setTel(form.getValues('tel'));
+        setGlobalTel(form.getValues('tel'));
       }
       router.push('/');
     } else if (state.error) {
