@@ -28,7 +28,7 @@ const Chat = () => {
   };
 
   return (
-    <div className={`max-w-[1000px] mx-auto pb-[50px] min-h-[calc(100dvh-120px)] flex flex-col justify-end`}>
+    <div className={`pb-[50px] min-h-[calc(100dvh-120px)] flex flex-col justify-end`}>
       <div className="flex flex-col gap-[20px] py-[30px]">
         <ChatMessage message="안녕하세요dasdddddddddddddddddddddddddddddddddddddddd" isSender />
         <ChatMessage message="안녕하세요ddsd" isSender={false} />

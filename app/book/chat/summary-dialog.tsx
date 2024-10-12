@@ -9,6 +9,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 import React from 'react';
 
 interface SummaryDialogProps {
@@ -30,14 +31,14 @@ const SummaryDialog = ({ children }: SummaryDialogProps) => {
         </AlertDialogHeader>
         <div className="bg-purple-200 rounded-[30px] py-[30px] px-[35px] text-[24px] text-center">요약내용</div>
         <AlertDialogFooter className="flex justify-center gap-[28px] w-full mt-[50px]">
-          <Button variant="purpleOutline" className="flex-1 h-[100px] text-[28px] font-bold">
+          <Button variant="purpleOutline" className="flex-1 h-[100px] text-[28px] font-bold rounded-[15px]">
             처음부터 다시하기
           </Button>
-          <Button variant="purpleOutline" className="flex-1 h-[100px] text-[28px] font-bold">
+          <Button variant="purpleOutline" className="flex-1 h-[100px] text-[28px] font-bold rounded-[15px]">
             내용 추가하기
           </Button>
-          <Button variant="purpleOutline" className="flex-1 h-[100px] text-[28px] font-bold">
-            계속 진행하기
+          <Button asChild variant="purpleOutline" className="flex-1 h-[100px] text-[28px] font-bold rounded-[15px]">
+            <Link href="/book/preview">계속 진행하기</Link>
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
