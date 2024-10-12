@@ -1,5 +1,6 @@
 'use client';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 const BookDescription = () => {
   return (
@@ -9,8 +10,8 @@ const BookDescription = () => {
         <div>그림책 만들기를 눌러서 시로 배우게 만들어보세요.</div>
         <div>스토리, 캐릭터, 일러스트를 조화롭게 구성할 수 있어요.</div>
       </div>
-      <Button variant="default" className="w-[290px] h-[100px] rounded-[15px] text-white text-[28px] font-bold">
-        그림책 만들기
+      <Button asChild variant="default" className="w-[290px] h-[100px] rounded-[15px] text-white text-[28px] font-bold">
+        <Link href="/book/chat">그림책 만들기</Link>
       </Button>
     </div>
   );
