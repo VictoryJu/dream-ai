@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import React from 'react';
-import SummaryDialog from './Summary-dialog';
+import SummaryDialog from './summary-dialog';
 
 const SummaryCard = () => {
   return (
