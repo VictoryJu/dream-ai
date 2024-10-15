@@ -14,7 +14,13 @@ const DocumentCard = ({ index, description, imageUrl }: DocumentCardProps) => {
         {index}
       </div>
       <div className="relative h-[120px] w-[120px]">
-        <Image src={imageUrl} alt="document-image" fill style={{ objectFit: 'contain' }} />
+        <Image
+          src={imageUrl}
+          alt="document-image"
+          fill
+          style={{ objectFit: 'contain' }}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        />
       </div>
       <div className="text-[34px] text-center font-bold text-purple-main group-hover:text-white ">{description}</div>
     </div>
