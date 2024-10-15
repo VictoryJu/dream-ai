@@ -1,7 +1,17 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+
+type messageType = {
+  author: 'ai' | 'user';
+  message: string;
+  isEnd: boolean;
+};
+
+const initialMessage: messageType = { author: 'ai', message: '무슨 내용의 책을 작성하고 싶나요?', isEnd: false };
 
 const useSocket = () => {
   const socket = useRef<WebSocket | null>(null);
+  const [messages, setMessages] = useState<messageType[]>([initialMessage]);
+  const [isPending, setIsPending] = useState(false);
 
   useEffect(() => {
     if (!socket.current) {
@@ -10,6 +20,7 @@ const useSocket = () => {
 
       ws.onopen = () => {
         console.log('connected');
+        receiveMessage();
       };
 
       ws.onclose = () => {
@@ -28,8 +39,10 @@ const useSocket = () => {
   }, []);
 
   const sendMessage = (message: string) => {
-    if (socket.current?.readyState === WebSocket.OPEN) {
-      socket.current.send(message);
+    if (socket.current?.readyState === WebSocket.OPEN && message) {
+      socket.current.send(JSON.stringify({ message }));
+      setMessages((prevMessages) => [...prevMessages, { author: 'user', message, isEnd: false }]);
+      setIsPending(true);
     }
   };
 
@@ -42,12 +55,21 @@ const useSocket = () => {
   const receiveMessage = () => {
     if (socket.current?.readyState === WebSocket.OPEN) {
       socket.current.onmessage = (event) => {
-        console.log(event.data);
+        const parseMessage = JSON.parse(event.data);
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { author: 'ai', message: parseMessage.message, isEnd: parseMessage?.isEnd },
+        ]);
+        setIsPending(false);
       };
     }
   };
 
-  return { sendMessage, receiveMessage };
+  const resetMessages = () => {
+    setMessages([initialMessage]);
+  };
+
+  return { sendMessage, receiveMessage, messages, resetMessages, isPending };
 };
 
 export default useSocket;
