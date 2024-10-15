@@ -19,8 +19,8 @@ export const loginAction = async (prevState: typeof initialState, formData: Form
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include',
     });
-    console.log(await res.json());
 
     if (!res.ok) {
       return { error: '전화번호 또는 비밀번호가 일치하지 않습니다.', message: '' };
