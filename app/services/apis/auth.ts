@@ -36,3 +36,12 @@ export const postPhoneVerification = (code: string): Promise<LoginResponseType> 
   });
 
 export const fetchProfile = (): Promise<LoginResponseType> => apiClient<LoginResponseType>('/auth/profile');
+
+const authApi = {
+  login,
+  logout,
+  signup,
+  getPhoneVerification,
+  postPhoneVerification,
+  fetchProfile,
+};
