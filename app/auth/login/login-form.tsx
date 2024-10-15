@@ -14,8 +14,7 @@ import { loginAction } from './actions';
 import { useFormState } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { authStore } from '@/lib/stores/auth-store';
-
+import { useAuthStore } from '@/lib/stores/auth-store';
 export const initialState: { message: string; error: string } = { message: '', error: '' };
 
 const LoginForm = () => {
@@ -31,13 +30,16 @@ const LoginForm = () => {
   const submitButtonDisabled = form.formState.isSubmitting || !form.formState.isValid;
   const [state, formAction] = useFormState(loginAction, initialState);
   const router = useRouter();
-  const { setGlobalTel } = authStore();
+  const { setGlobalTel, setGlobalStoryId } = useAuthStore((state) => state);
 
   useEffect(() => {
     if (state.message === 'SUCCESS') {
       if (keepLogin) {
         setGlobalTel(form.getValues('tel'));
       }
+      setGlobalTel('');
+      //TODO login response에서 storyId 받아와서 저장해야함
+      setGlobalStoryId(7);
       router.push('/');
     } else if (state.error) {
       form.setError('tel', { message: '가입된 전화번호인지 확인해주세요' });
