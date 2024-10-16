@@ -35,7 +35,7 @@ const Document = () => {
     },
   ];
   return (
-    <section className="flex flex-col w-full h-[1040px] px-[220px] justify-center items-center gap-[60px]">
+    <section className="flex flex-col w-full h-[1040px] px-[220px] lg:px-[110px] justify-center items-center gap-[60px]">
       <div className="text-[50px] font-bold text-center text-black-description ">동화책 만드는 방법</div>
       <div className="w-full flex  gap-[42px]">
         {documentData.map((data) => (
