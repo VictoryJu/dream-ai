@@ -13,6 +13,9 @@ const config: Config = {
         background: {
           DEFAULT: 'hsl(var(--background))',
         },
+        backgroundColor: {
+          'black-40': 'rgba(0, 0, 0, 0.40)',
+        },
         foreground: 'hsl(var(--foreground))',
         card: {
           DEFAULT: 'hsl(var(--card))',
@@ -81,6 +84,10 @@ const config: Config = {
           400: '#565656',
           500: '#6D737A',
         },
+        orange: {
+          main: '#f90',
+        },
+
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
