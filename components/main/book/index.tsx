@@ -8,7 +8,7 @@ const BookCarousel = dynamic(() => import('./book-carousel'), {
 
 const Book = () => {
   return (
-    <section className="px-[220px] flex justify-between items-center w-full h-[960px] bg-gradient-to-r from-purple-background via-purple-via to-purple-background ">
+    <section className="px-[220px] lg:px-[110px] flex justify-between items-center w-full h-[960px] bg-gradient-to-r from-purple-background via-purple-via to-purple-background ">
       <BookDescription />
       <Suspense fallback={null}>
         <BookCarousel />

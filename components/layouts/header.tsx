@@ -14,7 +14,7 @@ const Header = () => {
     router.push('/auth/login');
   };
   return (
-    <nav className="flex justify-between items-center bg-white w-full h-[120px] px-[220px]">
+    <nav className="flex justify-between items-center bg-white w-full h-[120px] px-[220px] lg:px-[110px]">
       <Link className="relative w-[312px] h-[48px]" href="/">
         <Image
           className="cursor-pointer"
