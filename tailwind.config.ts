@@ -118,6 +118,11 @@ const config: Config = {
 
       height: {
         header: '120px',
+        calcScreen: 'calc(100dvh - 120px)',
+      },
+
+      minHeight: {
+        screen: 'calc(100dvh - 120px)', // min-height로 추가
       },
 
       transitionProperty: {

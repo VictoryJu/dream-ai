@@ -2,6 +2,7 @@ import React from 'react';
 import BookCard from './book-card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import Link from 'next/link';
 
 const BookPreview = () => {
   const mockBook = [
@@ -32,7 +33,13 @@ const BookPreview = () => {
               <Badge className=" rounded-[10px]  py-[13.5px] px-[36px]  text-[22px] font-bold  absolute top-1/2 -translate-y-1/2 -left-[150px]">
                 {idx === 0 ? '앞표지' : `Page${idx}`}
               </Badge>
-              <BookCard title={title} description={description} imageUrl={imageUrl} />
+              <BookCard>
+                <BookCard.Image imageUrl={imageUrl} width={386} height={386} />
+                <BookCard.Content>
+                  <BookCard.Title title={title} />
+                  <BookCard.Description description={description} />
+                </BookCard.Content>
+              </BookCard>
             </div>
           );
         })}
@@ -41,8 +48,8 @@ const BookPreview = () => {
         <Button className="h-[100px] w-[290px] rounded-[15px] text-[28px] font-bold" variant="purpleOutline">
           Flow 재생성하기
         </Button>
-        <Button className="h-[100px] w-[290px] rounded-[15px] text-[28px] font-bold" variant="purpleOutline">
-          동화책 만들러가기
+        <Button asChild className="h-[100px] w-[290px] rounded-[15px] text-[28px] font-bold" variant="purpleOutline">
+          <Link href="/book/creator">동화책 만들러가기</Link>
         </Button>
       </div>
     </div>
