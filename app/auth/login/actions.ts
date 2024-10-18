@@ -19,18 +19,19 @@ export const loginAction = async (prevState: typeof initialState, formData: Form
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include',
     });
-    console.log(await res.json());
 
     if (!res.ok) {
-      return { error: '전화번호 또는 비밀번호가 일치하지 않습니다.', message: '' };
+      return { error: '전화번호 또는 비밀번호가 일치하지 않습니다.', message: '', data: null };
     }
+    const { data } = await res.json();
 
-    return { message: 'SUCCESS', error: '' };
+    return { message: 'SUCCESS', error: '', data };
   } catch (error) {
     if (error instanceof Error) {
-      return { error: error.message, message: '' };
+      return { error: error.message, message: '', data: null };
     }
-    return { error: '알 수 없는 오류가 발생했습니다.', message: '' };
+    return { error: '알 수 없는 오류가 발생했습니다.', message: '', data: null };
   }
 };

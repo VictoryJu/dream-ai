@@ -8,14 +8,14 @@ interface OtherBookCardProps {
 const OtherBookCard = ({ imageUrl, title, author }: OtherBookCardProps) => {
   return (
     <div className="bg-white rounded-[25px] p-4 animate-scaleUp cursor-pointer">
-      <div className="w-[383px] h-[412px] overflow-hidden rounded-[15px] relative">
+      <div className="w-full pb-[128.47%] rounded-[15px] overflow-hidden relative">
         <Image
           className="rounded-[15px] hover:scale-[1.1] transition-transform duration-300"
           src={imageUrl}
           alt="book-thumbnail"
           fill
           style={{ objectFit: 'cover' }}
-          quality={100}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>
       <div className="flex flex-col items-center mt-[25px]">

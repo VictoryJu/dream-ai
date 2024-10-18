@@ -1,17 +1,29 @@
 'use client';
+
+import { useAuthStore } from '@/lib/stores/auth-store';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const Header = () => {
+  const { globalTel, setGlobalTel } = useAuthStore((state) => state);
+  const router = useRouter();
+
+  const handleLogout = () => {
+    setGlobalTel('');
+    router.push('/auth/login');
+  };
   return (
-    <nav className="flex justify-between items-center bg-white w-full h-[120px] px-[220px]">
-      <Link href="/">
+    <nav className="flex justify-between items-center bg-white w-full h-[120px] px-[220px] lg:px-[110px]">
+      <Link className="relative w-[312px] h-[48px]" href="/">
         <Image
           className="cursor-pointer"
           src="/images/main/header-dream-ai-studio-logo.png"
           alt="header-main-logo"
-          width={312}
-          height={48}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          style={{ objectFit: 'contain' }}
+          priority
         />
       </Link>
       <ul className="flex gap-[45px] text-[22px] font-semibold">
@@ -27,12 +39,12 @@ const Header = () => {
         >
           나의 학급
         </Link>
-        <Link
-          href="/auth/login"
-          className="w-32 h-[60px] py-[16px] px-[24px] rounded-[8px] text-purple-main text-[22px] font-bold hover:underline"
+        <span
+          onClick={handleLogout}
+          className="cursor-pointer w-32 h-[60px] py-[16px] px-[24px] rounded-[8px] text-purple-main text-[22px] font-bold hover:underline"
         >
           로그아웃
-        </Link>
+        </span>
       </div>
     </nav>
   );

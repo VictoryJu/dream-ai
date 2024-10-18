@@ -20,7 +20,7 @@ const RoleField = ({ form }: RoleFieldProps) => {
   };
 
   useEffect(() => {
-    form.setValue('userRole', 'TEACHER');
+    form.setValue('userRole', 'STUDENT');
   }, [form]);
 
   return (

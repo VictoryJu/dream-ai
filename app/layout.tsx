@@ -3,6 +3,7 @@ import localFont from 'next/font/local';
 import './globals.css';
 import ConditionalHeader from '@/components/layouts/conditinal-header';
 import Providers from './provider';
+import { Toaster } from '@/components/ui/toaster';
 
 const pretendard = localFont({
   src: [
@@ -43,10 +44,13 @@ export default function RootLayout({
   return (
     <html lang="ko" className={`${pretendard.variable}`}>
       <body>
-        <Providers>
-          <ConditionalHeader />
-          {children}
-        </Providers>
+        <main>
+          <Providers>
+            <ConditionalHeader />
+            {children}
+          </Providers>
+          <Toaster />
+        </main>
       </body>
     </html>
   );

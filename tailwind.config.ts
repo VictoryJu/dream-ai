@@ -55,6 +55,13 @@ const config: Config = {
           DEFAULT: 'hsl(var(--red))',
           foreground: 'hsl(var(--red-foreground))',
           warning: '#FF6969',
+          bgWarning: 'rgba(255, 105, 105, 0.10)',
+        },
+        orange: {
+          DEFAULT: 'hsl(var(--orange))',
+          foreground: 'hsl(var(--red-foreground))',
+          main: '#F90',
+          bgMain: 'rgba(255, 105, 105, 0.10)',
         },
         green: {
           DEFAULT: 'hsl(var(--green))',
@@ -78,6 +85,7 @@ const config: Config = {
           border: '#AEAFBB',
           100: '#EAEAEA',
           200: '#C7C7C7',
+          300: '#8A8A8A',
           400: '#565656',
           500: '#6D737A',
         },
