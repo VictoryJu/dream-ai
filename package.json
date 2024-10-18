@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "pnpm run open-browser && next dev",
+    "dev-mac": "next dev",
     "open-browser": "start http://localhost:3000",
     "build": "next build",
     "start": "next start",
