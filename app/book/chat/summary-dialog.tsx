@@ -16,9 +16,10 @@ import React from 'react';
 interface SummaryDialogProps {
   children?: React.ReactNode;
   callback: () => void;
+  description: string;
 }
 
-const SummaryDialog = ({ children, callback }: SummaryDialogProps) => {
+const SummaryDialog = ({ children, callback, description }: SummaryDialogProps) => {
   return (
     <AlertDialog key="summary-dialog">
       <AlertDialogTrigger asChild={!!children}>{children}</AlertDialogTrigger>
@@ -31,7 +32,7 @@ const SummaryDialog = ({ children, callback }: SummaryDialogProps) => {
             아래 내용으로 그림책을 만들고 싶다면, 계속 진행하기 버튼을 클릭해주세요.
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <div className="bg-purple-200 rounded-[30px] py-[30px] px-[35px] text-[24px] text-center">요약내용</div>
+        <div className="bg-purple-200 rounded-[30px] py-[30px] px-[35px] text-[24px] text-center">{description}</div>
         <AlertDialogFooter className="flex justify-center gap-[28px] w-full mt-[50px]">
           <AlertDialogCancel asChild>
             <Button
