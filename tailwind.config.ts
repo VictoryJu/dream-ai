@@ -78,6 +78,7 @@ const config: Config = {
           border: '#AEAFBB',
           100: '#EAEAEA',
           200: '#C7C7C7',
+          300: '#8A8A8A',
           400: '#565656',
           500: '#6D737A',
         },
