@@ -18,7 +18,7 @@ const ChatMessage = ({ message, isSender }: ChatMessageProps) => {
         </div>
       )}
       <div
-        className={`${isSender ? '' : 'py-[20px] px-[40px] text-right'} w-full text-[22px] font-semibold text-black-description break-words `}
+        className={`${isSender ? '' : 'py-[20px] px-[40px] text-right'} w-full text-[22px] font-semibold text-black-description break-keep`}
       >
         {message}
       </div>
