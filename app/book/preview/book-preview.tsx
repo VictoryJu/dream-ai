@@ -1,10 +1,19 @@
+'use client';
+
 import React from 'react';
 import BookCard from './book-card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
+import { useStoryPreview } from '@/app/services/queries/story';
 
-const BookPreview = () => {
+interface BookPreviewProps {
+  storyId: string;
+}
+
+const BookPreview = ({ storyId }: BookPreviewProps) => {
+  const { data } = useStoryPreview(storyId);
+
   const mockBook = [
     {
       title: 'The Great Gatsby',
