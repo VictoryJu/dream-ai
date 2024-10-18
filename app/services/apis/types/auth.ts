@@ -16,11 +16,7 @@ export interface ISignupRequest {
 }
 
 export interface IUser {
-  userId: number;
   userName: string;
-  realName: string;
-  tel: string;
-  userRole: 'STUDENT' | 'TEACHER';
   storyId: number;
 }
 

@@ -4,7 +4,7 @@ import apiClient from './instance/instance';
 export const login = ({ password, tel }: ILoginRequest): Promise<LoginResponseType> =>
   apiClient<LoginResponseType>('/auth/login', {
     method: 'POST',
-    body: JSON.stringify({ password, tel }),
+    body: JSON.stringify({ password, userName: tel }),
   });
 
 export const logout = (): Promise<void> => apiClient<void>('/auth/logout');

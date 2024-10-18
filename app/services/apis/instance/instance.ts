@@ -14,6 +14,7 @@ const apiClient = async <T>(url: string, options: ApiClientOptions = {}): Promis
         'Content-Type': 'application/json',
         ...fetchOptions.headers,
       },
+      credentials: 'include',
     });
 
     console.log(response);
