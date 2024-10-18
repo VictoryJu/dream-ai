@@ -15,9 +15,21 @@ import { useFormState } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useAuthStore } from '@/lib/stores/auth-store';
-export const initialState: { message: string; error: string } = { message: '', error: '' };
+import { IUser } from '@/app/services/apis/types/auth';
+import { useLogin } from '@/app/services/queries/auth';
+
+export const initialState: { message: string; error: string; data: IUser | null } = {
+  message: '',
+  error: '',
+  data: {
+    userName: '',
+    storyId: 0,
+  },
+};
 
 const LoginForm = () => {
+  // const { mutate: login, isSuccess: isLoginSuccess, isError: isLoginError } = useLogin();
+
   const form = useForm<LoginForm>({
     resolver: zodResolver(loginFormSchema),
     mode: 'onChange',
@@ -38,8 +50,7 @@ const LoginForm = () => {
         setGlobalTel(form.getValues('tel'));
       }
       setGlobalTel('');
-      //TODO login response에서 storyId 받아와서 저장해야함
-      setGlobalStoryId(7);
+      setGlobalStoryId(state.data?.storyId || 0);
       router.push('/');
     } else if (state.error) {
       form.setError('tel', { message: '가입된 전화번호인지 확인해주세요' });
@@ -47,7 +58,25 @@ const LoginForm = () => {
     }
   }, [state, router, form]);
 
+  // useEffect(() => {
+  //   if (isLoginSuccess) {
+  //     if (keepLogin) {
+  //       setGlobalTel(form.getValues('tel'));
+  //     }
+  //     setGlobalTel('');
+  //     setGlobalStoryId(state.data?.storyId || 0);
+  //     router.push('/');
+  //   } else if (isLoginError) {
+  //     form.setError('tel', { message: '가입된 전화번호인지 확인해주세요' });
+  //     form.setError('password', { message: '전화번호 또는 비밀번호가 일치하지 않습니다' });
+  //   }
+  // }, [isLoginSuccess, isLoginError, form]);
+
   const [keepLogin, setKeepLogin] = useState(false);
+
+  // const handleSubmit = (data: LoginForm) => {
+  //   login(data);
+  // };
 
   return (
     <div className="min-w-[350px]">

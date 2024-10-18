@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import React, { useCallback, useEffect } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { SignupForm } from '../validator';
-import { useTimer } from '@/lib/hooks/useTimer';
+import { useTimer } from '@/hooks/useTimer';
 import { usePhoneVerification } from '@/app/services/queries/auth';
 
 interface VerifyFieldProps {

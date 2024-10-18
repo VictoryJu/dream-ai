@@ -1,5 +1,17 @@
 import { useMutation } from '@tanstack/react-query';
-import { getPhoneVerification, postPhoneVerification, signup } from '../apis/auth';
+import { getPhoneVerification, login, logout, postPhoneVerification, signup } from '../apis/auth';
+
+export const useLogin = () => {
+  return useMutation({
+    mutationFn: login,
+  });
+};
+
+export const useLogout = () => {
+  return useMutation({
+    mutationFn: logout,
+  });
+};
 
 export const useSignup = () => {
   return useMutation({

@@ -3,7 +3,7 @@ import React from 'react';
 
 const BookLoading = () => {
   return (
-    <div className="w-full h-full bg-purple-300 flex justify-center items-center">
+    <div className="w-full h-calcScreen bg-purple-300 flex justify-center items-center">
       <div className="flex flex-col items-center">
         <Image src="/images/book/book-spinner.gif" alt="book-loading" width={222} height={222} />
         <div className="mt-[50px] text-center  text-black-description ">

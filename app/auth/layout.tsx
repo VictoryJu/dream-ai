@@ -5,7 +5,7 @@ interface AuthLayoutProps {
 }
 const AuthLayout = ({ children }: AuthLayoutProps) => {
   return (
-    <section className="flex justify-between bg-purple-300 h-full">
+    <section className="flex justify-between bg-purple-300 h-[100dvh]">
       <div
         className="w-[55%] bg-cover bg-center bg-no-repeat relative"
         style={{ backgroundImage: 'url("/images/auth/auth-main-image.webp")' }}
