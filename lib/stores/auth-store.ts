@@ -24,7 +24,7 @@ const useAuthStoreBase = create<AuthState>()(
   ),
 );
 
-export const useAuthStore = (selector: (state: AuthState) => any) => {
+export const useAuthStore = <T>(selector: (state: AuthState) => T) => {
   const [hydrated, setHydrated] = useState(false);
   useEffect(() => setHydrated(true), []);
   const store = useAuthStoreBase(selector);
