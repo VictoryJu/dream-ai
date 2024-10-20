@@ -36,7 +36,7 @@ const Document = () => {
   ];
   return (
     <section className="min-h-[1040px] tablet:min-h-[800px] flex flex-col justify-center items-center">
-      <div className="w-full max-w-desktop tablet:max-w-tablet mx-auto px-desktop px-tablet">
+      <div className="w-full max-w-desktop tablet:max-w-tablet mx-auto tablet:px-tablet">
         <div className="text-desktopTitle tablet:text-tabletTitle font-bold text-center text-black-description ">
           동화책 만드는 방법
         </div>

@@ -146,7 +146,7 @@ const config: Config = {
 
       maxWidth: {
         tablet: '1200px',
-        desktop: '1400px',
+        desktop: '1480px',
       },
 
       padding: {

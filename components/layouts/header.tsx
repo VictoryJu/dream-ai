@@ -26,7 +26,7 @@ const Header = () => {
           priority
         />
       </Link>
-      <ul className="flex flex-1 gap-10 tablet:gap-5 text-xl tablet:text-lg font-semibold justify-center">
+      <ul className="flex flex-1 gap-10 tablet:gap-5 text-[22px] tablet:text-lg font-semibold justify-center">
         <li>프로그램</li>
         <li>수강생 작품</li>
         <li>스토리</li>

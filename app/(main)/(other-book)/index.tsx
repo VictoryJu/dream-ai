@@ -13,7 +13,7 @@ const OtherBook = () => {
       author: '이작가',
     },
     {
-      imageUrl: '/images/main/book/book3.webp',
+      imageUrl: '/images/main/book/book1.webp',
       title: '책 제목 들어가는곳3',
       author: '박작가',
     },
