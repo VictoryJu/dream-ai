@@ -7,6 +7,28 @@ body {
   height: 100vh;
 }
 
+.perspective {
+  perspective: 1800px;
+}
+
+.page {
+  transform-style: preserve-3d;
+  transform: rotateY(0deg);
+}
+
+.page.turn {
+  transform: rotateY(-180deg);
+}
+
+.front,
+.back {
+  backface-visibility: hidden;
+}
+
+.back {
+  transform: rotateY(-180deg);
+}
+
 li {
   cursor: pointer;
   transition: color 0.3s;

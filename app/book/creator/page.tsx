@@ -2,6 +2,7 @@
 import { useState, useCallback, useMemo } from 'react';
 import BookEditor from './book-editor';
 import PageNavigator from './page-navigator';
+import FinalPreview from './(final)/final-preview';
 
 const Page = () => {
   // 선택된 책의 인덱스를 관리하는 상태
@@ -24,6 +25,7 @@ const Page = () => {
       <div className="flex-7 bg-purple-300 w-[100%] pt-[52px] pb-[130px] pr-[81px]">
         {/* 선택된 인덱스를 BookEditor로 전달 */}
         <BookEditor />
+        <FinalPreview />
       </div>
     </div>
   );
