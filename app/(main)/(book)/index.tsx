@@ -8,11 +8,13 @@ const BookCarousel = dynamic(() => import('./book-carousel'), {
 
 const Book = () => {
   return (
-    <section className="px-[220px] lg:px-[110px] flex justify-between items-center w-full h-[960px] bg-gradient-to-r from-purple-background via-purple-via to-purple-background ">
-      <BookDescription />
-      <Suspense fallback={null}>
-        <BookCarousel />
-      </Suspense>
+    <section className=" py-[110px]  bg-gradient-to-r from-purple-background via-purple-via to-purple-background ">
+      <div className="max-w-desktop tablet:max-w-tablet min-h-[620px] tablet:min-h-[400px] mx-auto  flex justify-between items-center tablet:gap-5 tablet:px-tablet ">
+        <BookDescription />
+        <Suspense fallback={null}>
+          <BookCarousel />
+        </Suspense>
+      </div>
     </section>
   );
 };

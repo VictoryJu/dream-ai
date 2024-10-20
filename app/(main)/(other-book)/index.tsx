@@ -19,12 +19,16 @@ const OtherBook = () => {
     },
   ];
   return (
-    <section className="px-[220px] lg:px-[110px] py-[200px] bg-black-background">
-      <div className="text-[50px] font-bold text-center tracking-[2px] text-white">다른 친구들이 만든 그림책</div>
-      <div className="grid grid-cols-3 gap-x-[51px] gap-y-[58px] px-[60px] py-[20px] mt-[50px]">
-        {OtherBookData.map((book) => (
-          <OtherBookCard key={book.imageUrl} imageUrl={book.imageUrl} title={book.title} author={book.author} />
-        ))}
+    <section className=" bg-black-background py-[200px] tablet:py-[110px]">
+      <div className="max-w-desktop tablet:max-w-tablet mx-auto tablet:px-tablet ">
+        <div className="text-desktopTitle tablet:text-tabletTitle font-bold text-center tracking-[2px] text-white">
+          다른 친구들이 만든 그림책
+        </div>
+        <div className="grid grid-cols-3 gap-x-[51px] gap-y-[58px] tablet:gap-x-[30px] tablet:gap-y-[30px]  mt-[50px]">
+          {OtherBookData.map((book) => (
+            <OtherBookCard key={book.imageUrl} imageUrl={book.imageUrl} title={book.title} author={book.author} />
+          ))}
+        </div>
       </div>
     </section>
   );
