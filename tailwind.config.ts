@@ -136,6 +136,28 @@ const config: Config = {
       transitionProperty: {
         backgroundColor: 'background-color',
       },
+
+      fontSize: {
+        desktopTitle: '50px',
+        tabletTitle: '40px',
+        desktopDescription: '26px',
+        tabletDescription: '20px',
+      },
+
+      maxWidth: {
+        tablet: '1200px',
+        desktop: '1400px',
+      },
+
+      padding: {
+        tablet: '50px',
+      },
+
+      screens: {
+        mobile: { max: '999px' },
+        tablet: { min: '1000px', max: '1400px' },
+        desktop: { min: '1401px' },
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],
