@@ -8,7 +8,13 @@ interface ArrowTailIconProps {
   className?: string;
 }
 
-const ArrowTailIcon = ({ width, height, stroke = '#ffffff', direction = 'up', className }: ArrowTailIconProps) => {
+const ArrowTailIcon = ({
+  width = 18,
+  height = 22,
+  stroke = '#ffffff',
+  direction = 'up',
+  className,
+}: ArrowTailIconProps) => {
   const rotate = {
     left: '270deg',
     up: '0deg',
