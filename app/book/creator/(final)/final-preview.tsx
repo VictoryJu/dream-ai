@@ -1,5 +1,5 @@
 import React from 'react';
-import PageFlip from './page-flip';
+import FinalPageCarousel from './final-page-carousel';
 import FinalDialog from './final-dialog';
 import { Button } from '@/components/ui/button';
 import FinalDialogContainer from './final-dialog-container';
@@ -8,9 +8,9 @@ import ArrowTailLeftPurple from '@/components/ui/icons/arrow-tail-left-purple';
 const FinalPreview = () => {
   return (
     <div>
-      <PageFlip />
+      <FinalPageCarousel />
       <div className="flex justify-center items-center gap-[20px]">
-        <Button variant="purpleOutline" className="flex items-center gap-[10px] text-[22px] font-bold h-[60px] group">
+        <Button variant="purpleOutline" className="flex items-center gap-[10px] text-[22px] font-bold h-[60px] group ">
           <ArrowTailLeftPurple
             direction="left"
             className="stroke-purple-main fill-purple-main group-hover:stroke-white group-hover:fill-white transition-colors duration-300"
@@ -27,12 +27,15 @@ const FinalPreview = () => {
           cancelText="나중에"
           actionText="개인회원 전환"
         >
-          <Button variant="purpleOutline" className="text-[22px] font-bold h-[60px]">
+          <Button variant="purpleOutline" className="text-[22px] font-bold h-[60px] ">
             내가 만든 책 목록
           </Button>
         </FinalDialog>
         <FinalDialogContainer>
-          <Button variant="purpleOutline" className="flex items-center gap-[10px] text-[22px] font-bold h-[60px] group">
+          <Button
+            variant="purpleOutline"
+            className="flex items-center gap-[10px] text-[22px] font-bold h-[60px] group "
+          >
             최종 제출
             <ArrowTailLeftPurple
               direction="right"
