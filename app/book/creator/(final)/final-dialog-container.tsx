@@ -39,7 +39,9 @@ const FinalDialogContainer = ({ children }: FinalDialogProps) => {
       <AlertDialog open={isSecondDialogOpen} onOpenChange={setIsSecondDialogOpen}>
         <AlertDialogContent className="w-[850px] py-[50px] px-[60px]">
           <AlertDialogHeader>
-            <AlertDialogTitle className="text-center text-[40px] text-black-description"></AlertDialogTitle>
+            <AlertDialogTitle className="text-center text-[40px] text-black-description">
+              <span className=" text-purple-main">제출이 완료</span>되었어요!
+            </AlertDialogTitle>
             <AlertDialogDescription className="text-center text-[26px] font-semibold text-black-description">
               내가 만든 목록에서 나의 동화책들을 확인할 수 있어요.
             </AlertDialogDescription>
