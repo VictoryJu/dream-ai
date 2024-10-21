@@ -21,7 +21,7 @@ interface SummaryDialogProps {
 
 const SummaryDialog = ({ children, callback, description }: SummaryDialogProps) => {
   return (
-    <AlertDialog key="summary-dialog">
+    <AlertDialog>
       <AlertDialogTrigger asChild={!!children}>{children}</AlertDialogTrigger>
       <AlertDialogContent className="w-[1050px] py-[50px] px-[60px]">
         <AlertDialogHeader className="mb-[50px]">

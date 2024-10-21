@@ -35,12 +35,16 @@ const Document = () => {
     },
   ];
   return (
-    <section className="flex flex-col w-full h-[1040px] px-[220px] lg:px-[110px] justify-center items-center gap-[60px]">
-      <div className="text-[50px] font-bold text-center text-black-description ">동화책 만드는 방법</div>
-      <div className="w-full flex  gap-[42px]">
-        {documentData.map((data) => (
-          <DocumentCard key={data.imageUrl} {...data} index={data.id} />
-        ))}
+    <section className="min-h-[1040px] tablet:min-h-[800px] flex flex-col justify-center items-center">
+      <div className="w-full max-w-desktop tablet:max-w-tablet mx-auto tablet:px-tablet">
+        <div className="text-desktopTitle tablet:text-tabletTitle font-bold text-center text-black-description ">
+          동화책 만드는 방법
+        </div>
+        <div className="w-full flex gap-[42px] tablet:gap-[20px] mt-[60px]">
+          {documentData.map((data) => (
+            <DocumentCard key={data.imageUrl} {...data} index={data.id} />
+          ))}
+        </div>
       </div>
     </section>
   );

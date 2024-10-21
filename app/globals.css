@@ -23,6 +23,9 @@ li {
 
 .swiper-slide {
   width: 460px !important;
+  @media (min-width: 1000px) and (max-width: 1400px) {
+    width: 300px !important;
+  }
 }
 
 .swiper-slide-shadow-left {
