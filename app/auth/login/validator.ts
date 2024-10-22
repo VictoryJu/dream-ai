@@ -7,6 +7,7 @@ export const loginFormSchema = z.object({
     .length(11, '휴대폰 번호는 11자리여야 합니다.')
     .transform((val) => val.replace(/-/g, '')),
   password: z.string({ invalid_type_error: '올바른 비밀번호 형식이 아닙니다.' }),
+  keepLogin: z.boolean(),
 });
 
 export type LoginForm = z.infer<typeof loginFormSchema>;
