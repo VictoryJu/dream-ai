@@ -117,11 +117,16 @@ const config: Config = {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
         },
+        slideUp: {
+          '0%': { transform: 'translateY(100%)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
       },
 
       animation: {
         scaleUp: 'scaleUp 0.5s ease-in-out forwards',
         fadeIn: 'fadeIn 0.5s ease-in-out forwards',
+        slideUp: 'slideUp 0.5s ease-out',
       },
 
       height: {
@@ -145,7 +150,7 @@ const config: Config = {
       },
 
       maxWidth: {
-        tablet: '1200px',
+        tablet: '1000px',
         desktop: '1480px',
       },
 
