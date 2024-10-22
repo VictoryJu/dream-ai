@@ -1,3 +1,4 @@
+import { getAuthState } from '@/lib/stores/auth-store';
 import { ApiClientOptions, ApiError, ApiResponse } from '../types/instance';
 
 const apiClient = async <T>(url: string, options: ApiClientOptions = {}): Promise<T> => {
@@ -7,19 +8,27 @@ const apiClient = async <T>(url: string, options: ApiClientOptions = {}): Promis
 
   const fullUrl = `${baseUrl}${url}${queryParams}`;
 
+  const token = getAuthState().accessToken;
+
+  const headers = new Headers({
+    'Content-Type': 'application/json',
+    ...fetchOptions.headers,
+  });
+
+  if (token) {
+    headers.set('Authorization', `Bearer ${token}`);
+  }
+
   try {
     const response: Response = await fetch(fullUrl, {
       ...fetchOptions,
-      headers: {
-        'Content-Type': 'application/json',
-        ...fetchOptions.headers,
-      },
+      headers,
       credentials: 'include',
     });
 
-    console.log(response);
-    // const responseData: ApiResponse<T> = (await response.json());
-    const responseData = { data: await response, message: '', errors: { message: '' } };
+    const { data } = await response.json();
+
+    const responseData: ApiResponse<T> = { data, message: 'SUCCESS', errors: { message: '' } };
 
     if (!response.ok || responseData.message === 'FAILURE') {
       throw new ApiError(responseData.errors?.message || 'API request failed', response.status, {
@@ -27,7 +36,7 @@ const apiClient = async <T>(url: string, options: ApiClientOptions = {}): Promis
       });
     }
 
-    return { data: responseData, message: 'SUCCESS' } as T;
+    return responseData as T;
   } catch (error) {
     if (error instanceof ApiError) {
       throw error;
