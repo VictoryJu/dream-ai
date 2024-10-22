@@ -23,7 +23,6 @@ export const signupAction = async (
   }
 
   const { username, tel, password, email, userRole } = validatedFields.data;
-  console.log(validatedFields.data);
 
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/signup`, {
@@ -33,7 +32,6 @@ export const signupAction = async (
         'Content-Type': 'application/json',
       },
     });
-    console.log(await res.json());
 
     if (!res.ok) {
       return { message: '', error: '회원가입이 실패하였습니다.' };

@@ -1,3 +1,4 @@
+import { useAuthStore } from '@/lib/stores/auth-store';
 import { useEffect, useRef, useState } from 'react';
 
 type messageType = {
@@ -12,10 +13,12 @@ const useSocket = () => {
   const socket = useRef<WebSocket | null>(null);
   const [messages, setMessages] = useState<messageType[]>([initialMessage]);
   const [isPending, setIsPending] = useState(false);
+  const [isError, setIsError] = useState(true);
+  const accessToken = useAuthStore((state) => state.accessToken);
 
   useEffect(() => {
     if (!socket.current) {
-      socket.current = new WebSocket('ws://cndowy24.cafe24.com/chat');
+      socket.current = new WebSocket(process.env.NEXT_PUBLIC_WS_URL as string);
       const ws = socket.current;
 
       ws.onopen = () => {
@@ -29,6 +32,7 @@ const useSocket = () => {
 
       ws.onerror = (error) => {
         console.log('error', error);
+        setIsError(true);
       };
     }
     return () => {
@@ -40,7 +44,7 @@ const useSocket = () => {
 
   const sendMessage = (message: string) => {
     if (socket.current?.readyState === WebSocket.OPEN && message) {
-      socket.current.send(JSON.stringify({ message }));
+      socket.current.send(JSON.stringify({ message, token: accessToken }));
       setMessages((prevMessages) => [...prevMessages, { author: 'user', message, isEnd: false }]);
       setIsPending(true);
     }
@@ -69,7 +73,7 @@ const useSocket = () => {
     setMessages([initialMessage]);
   };
 
-  return { sendMessage, receiveMessage, messages, resetMessages, isPending };
+  return { sendMessage, receiveMessage, messages, resetMessages, isPending, isError };
 };
 
 export default useSocket;

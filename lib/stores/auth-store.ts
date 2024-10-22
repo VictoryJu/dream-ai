@@ -1,21 +1,26 @@
-import { create } from 'zustand';
-import { createJSONStorage, persist } from 'zustand/middleware';
-import { useState, useEffect } from 'react';
+'use client';
 
-interface AuthState {
-  globalTel: string;
-  globalStoryId: number;
-  setGlobalTel: (tel: string) => void;
-  setGlobalStoryId: (id: number) => void;
+import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
+
+export interface AuthStates {
+  storyId: number;
+  accessToken: string;
+}
+interface AuthActions {
+  setStoryId: (storyId: number) => void;
+  setAccessToken: (accessToken: string) => void;
 }
 
-const useAuthStoreBase = create<AuthState>()(
+type AuthState = AuthStates & AuthActions;
+
+export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
-      globalTel: '',
-      globalStoryId: 0,
-      setGlobalTel: (tel) => set({ globalTel: tel }),
-      setGlobalStoryId: (id) => set({ globalStoryId: id }),
+      storyId: 0,
+      accessToken: '',
+      setStoryId: (storyId) => set({ storyId }),
+      setAccessToken: (accessToken) => set({ accessToken }),
     }),
     {
       name: 'auth-storage',
@@ -24,18 +29,8 @@ const useAuthStoreBase = create<AuthState>()(
   ),
 );
 
-export const useAuthStore = <T>(selector: (state: AuthState) => T) => {
-  const [hydrated, setHydrated] = useState(false);
-  useEffect(() => setHydrated(true), []);
-  const store = useAuthStoreBase(selector);
-  return hydrated
-    ? store
-    : selector({
-        globalTel: '',
-        globalStoryId: 0,
-        setGlobalTel: () => {},
-        setGlobalStoryId: () => {},
-      });
-};
+// 스토어의 현재 상태를 가져오는 함수
+export const getAuthState = () => useAuthStore.getState();
 
-export const getAuthState = () => useAuthStoreBase.getState();
+// 스토어를 리셋하는 함수 (로그아웃 시 유용)
+export const resetAuthStore = () => useAuthStore.setState({ storyId: 0, accessToken: '' });
