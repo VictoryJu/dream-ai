@@ -1,8 +1,7 @@
-import React, { Suspense } from 'react';
-import BookPreview from '../book-preview';
-import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
-import { storyKeys } from '@/app/services/keys/story';
 import storyApi from '@/app/services/apis/story';
+import { storyKeys } from '@/app/services/keys/story';
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import BookPreview from './book-preview';
 
 interface BookPreviewPageProps {
   params: {

@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
-import React, {ReactNode } from 'react';
+import { ReactNode } from 'react';
+import Markdown from 'react-markdown';
 
 interface BookCardProps {
   children: ReactNode;
@@ -28,7 +29,11 @@ interface BookCardTitleProps {
 }
 
 const Title = ({ title, className }: BookCardTitleProps) => {
-  return <h1 className={cn('text-[30px] text-black-description font-bold mb-[20px]', className)}>{title}</h1>;
+  return (
+    <h1 className={cn('text-[30px] tablet:text-[26px] text-black-description font-bold mb-[20px]', className)}>
+      {title}
+    </h1>
+  );
 };
 
 interface BookCardDescriptionProps {
@@ -40,11 +45,10 @@ const Description = ({ description, className }: BookCardDescriptionProps) => {
   return (
     <p
       className={cn(
-        'text-[22px] text-black-description font-semibold',
+        'text-[22px] tablet:text-[18px] text-black-description font-semibold',
         'line-clamp-5', // 최대 5줄로 제한
         'overflow-hidden', // 넘치는 내용 숨김
-        'display-webkit-box', // 웹킷 기반 브라우저에서 다중 줄 지원
-        'webkit-box-orient-vertical', // 수직 박스 정렬
+        'break-keep',
         className,
       )}
       style={{
@@ -55,11 +59,10 @@ const Description = ({ description, className }: BookCardDescriptionProps) => {
         textOverflow: 'ellipsis', // 말줄임표 적용
       }}
     >
-      {description}
+      <Markdown>{description}</Markdown>
     </p>
   );
 };
-
 
 interface BookCardContentProps {
   children: ReactNode;
@@ -91,13 +94,13 @@ const BookImage = ({ imageUrl, width, height, className, showOverlayText }: Book
   };
   return (
     <div className={cn('relative w-full h-full', className)} style={ImageStyle}>
-      <Image src={imageUrl} alt="책 이미지" fill className="object-cover rounded-[4px] min-[157px]" />
+      <Image src={imageUrl} alt="책 이미지" fill className="object-cover rounded-[4px]" />
       {showOverlayText && (
         <div
           className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-md text-white text-xs py-1 px-4 w-full text-center"
           style={{
             background: 'rgba(0, 0, 0, 0.40)',
-            width: 'max-content'
+            width: 'max-content',
           }}
         >
           아직 작성중이에요!
