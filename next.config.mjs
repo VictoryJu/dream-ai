@@ -18,6 +18,15 @@ const nextConfig = {
       },
     },
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'ppleedutest.s3.ap-northeast-2.amazonaws.com',
+        pathname: '/story/**',
+      },
+    ],
+  },
   async rewrites() {
     return [
       {
