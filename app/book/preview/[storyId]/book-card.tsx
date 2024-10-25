@@ -43,7 +43,7 @@ interface BookCardDescriptionProps {
 
 const Description = ({ description, className }: BookCardDescriptionProps) => {
   return (
-    <p
+    <div
       className={cn(
         'text-[22px] tablet:text-[18px] text-black-description font-semibold',
         'line-clamp-5', // 최대 5줄로 제한
@@ -60,7 +60,7 @@ const Description = ({ description, className }: BookCardDescriptionProps) => {
       }}
     >
       <Markdown>{description}</Markdown>
-    </p>
+    </div>
   );
 };
 
@@ -89,8 +89,6 @@ const BookImage = ({ imageUrl, width, height, className, showOverlayText }: Book
   const ImageStyle = {
     width,
     height,
-    minWidth: '157px', // 최소 width 설정
-    minHeight: '157px', // 최소 height 설정
   };
   return (
     <div className={cn('relative w-full h-full', className)} style={ImageStyle}>

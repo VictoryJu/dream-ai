@@ -1,9 +1,13 @@
+import { cn } from '@/lib/utils';
 import Image from 'next/image';
-import React from 'react';
 
-const BookLoading = () => {
+interface BookLoadingProps {
+  className?: string;
+}
+
+const BookLoading = ({ className }: BookLoadingProps) => {
   return (
-    <div className="w-full h-calcScreen bg-purple-300 flex justify-center items-center">
+    <div className={cn('w-full h-calcScreen bg-purple-300 flex justify-center items-center', className)}>
       <div className="flex flex-col items-center">
         <Image src="/images/book/book-spinner.gif" alt="book-loading" width={222} height={222} />
         <div className="mt-[50px] text-center  text-black-description ">
