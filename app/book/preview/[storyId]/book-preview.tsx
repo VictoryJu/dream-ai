@@ -1,6 +1,7 @@
 'use client';
 
 import { useStoryPreview } from '@/app/services/queries/story';
+import LazyRender from '@/components/common/LazyRender';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -12,7 +13,6 @@ interface BookPreviewProps {
 
 const BookPreview = ({ storyId }: BookPreviewProps) => {
   const { data: books } = useStoryPreview(storyId);
-  console.log(books);
 
   const bookLength = books?.length ?? 0;
 
@@ -31,20 +31,27 @@ const BookPreview = ({ storyId }: BookPreviewProps) => {
     <>
       <div className="flex flex-col gap-[30px]">
         {books.map((book, idx) => {
-          const { sceneTitle, sceneSummary, imageUrl, pageId } = book;
+          const { sceneTitle, sceneSummary, image_url, pageId } = book;
           return (
-            <div className="flex items-center gap-[20px] relative " key={pageId}>
-              <Badge className="w-[120px] flex justify-center items-center h-[50px] rounded-[10px] text-[22px] font-bold">
-                {getBadgeText(idx)}
-              </Badge>
-              <BookCard className="animate-fadeIn">
-                <BookCard.Image imageUrl={imageUrl ?? '/images/main/book/book1.webp'} width={386} height={386} />
-                <BookCard.Content>
-                  <BookCard.Title title={sceneTitle} />
-                  <BookCard.Description description={sceneSummary} />
-                </BookCard.Content>
-              </BookCard>
-            </div>
+            <LazyRender key={pageId}>
+              <div className="animate-slideUp flex items-center gap-[20px] relative " key={pageId}>
+                <Badge className="w-[120px] flex justify-center items-center h-[50px] rounded-[10px] text-[22px] font-bold">
+                  {getBadgeText(idx)}
+                </Badge>
+                <BookCard className="animate-fadeIn">
+                  <BookCard.Image
+                    className="min-w-[386px]"
+                    imageUrl={image_url ?? '/images/main/book/book1.webp'}
+                    width={386}
+                    height={386}
+                  />
+                  <BookCard.Content>
+                    <BookCard.Title title={sceneTitle} />
+                    <BookCard.Description description={sceneSummary} />
+                  </BookCard.Content>
+                </BookCard>
+              </div>
+            </LazyRender>
           );
         })}
       </div>
@@ -60,7 +67,7 @@ const BookPreview = ({ storyId }: BookPreviewProps) => {
           className="h-[100px] w-[290px] rounded-[15px] tablet:w-[200px] tablet:h-[80px] tablet:text-[20px] text-[28px] font-bold"
           variant="purpleOutline"
         >
-          <Link href="/book/creator">동화책 만들러가기</Link>
+          <Link href={`/book/creator/${storyId}`}>동화책 만들러가기</Link>
         </Button>
       </div>
     </>
