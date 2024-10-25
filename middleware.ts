@@ -29,10 +29,9 @@ export async function middleware(request: NextRequest) {
 
   const loginUrl = new URL('/auth/login', request.url);
   loginUrl.searchParams.set('redirect', request.url);
-  const response = NextResponse.redirect(loginUrl, { status: 302 });
 
   if (!token) {
-    return response;
+    return NextResponse.redirect(loginUrl, { status: 302 });
   }
 
   try {
@@ -43,7 +42,7 @@ export async function middleware(request: NextRequest) {
     }
 
     const currentTime = Math.floor(Date.now() / 1000);
-    const tokenExp = decoded.exp;
+    const tokenExp = decoded.exp * 1000;
 
     if (currentTime >= tokenExp - REFRESH_THRESHOLD) {
       throw new jwt.TokenExpiredError('Token expired', new Date(tokenExp));
@@ -75,10 +74,10 @@ export async function middleware(request: NextRequest) {
         return response;
       } catch (error) {
         console.error(error);
-        return response;
+        return NextResponse.redirect(loginUrl, { status: 302 });
       }
     } else {
-      return response;
+      return NextResponse.redirect(loginUrl, { status: 302 });
     }
   }
 }
