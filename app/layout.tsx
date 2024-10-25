@@ -1,9 +1,9 @@
+import ConditionalHeader from '@/app/(layouts)/conditinal-header';
+import { Toaster } from '@/components/ui/toaster';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
-import ConditionalHeader from '@/components/layouts/conditinal-header';
 import Providers from './provider';
-import { Toaster } from '@/components/ui/toaster';
 
 const pretendard = localFont({
   src: [
