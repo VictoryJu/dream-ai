@@ -1,47 +1,49 @@
+import createApiClient from './instance/instance';
 import { ILoginRequest, ISignupRequest, LoginResponseType } from './types/auth';
-import apiClient from './instance/instance';
 
-export const login = ({ password, tel }: ILoginRequest): Promise<LoginResponseType> =>
-  apiClient<LoginResponseType>('/auth/login', {
-    method: 'POST',
-    body: JSON.stringify({ password, userName: tel }),
-  });
+const createAuthApi = (config?: { serverToken?: string }) => {
+  const apiClient = createApiClient(config);
 
-export const logout = (): Promise<void> => apiClient<void>('/auth/logout');
+  return {
+    login: ({ password, tel }: ILoginRequest): Promise<LoginResponseType> =>
+      apiClient<LoginResponseType>('/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({ password, userName: tel }),
+      }),
 
-export const signup = ({
-  userId,
-  userName,
-  password,
-  realName,
-  tel,
-  userRole,
-  storyId,
-}: ISignupRequest): Promise<LoginResponseType> =>
-  apiClient<LoginResponseType>('/auth/signup', {
-    method: 'POST',
-    body: JSON.stringify({ userId, userName, password, realName, tel, userRole, storyId }),
-  });
+    logout: (): Promise<void> => apiClient<void>('/auth/logout'),
 
-export const getPhoneVerification = (tel: string): Promise<LoginResponseType> =>
-  apiClient<LoginResponseType>('/auth/phone-verifications', {
-    method: 'POST',
-    body: JSON.stringify({ userName: tel }),
-  });
+    signup: ({
+      userId,
+      userName,
+      password,
+      realName,
+      tel,
+      userRole,
+      storyId,
+    }: ISignupRequest): Promise<LoginResponseType> =>
+      apiClient<LoginResponseType>('/auth/signup', {
+        method: 'POST',
+        body: JSON.stringify({ userId, userName, password, realName, tel, userRole, storyId }),
+      }),
 
-export const postPhoneVerification = (code: string): Promise<LoginResponseType> =>
-  apiClient<LoginResponseType>('/auth/phone-verifications/verify', {
-    method: 'POST',
-    body: JSON.stringify({ code }),
-  });
+    getPhoneVerification: (tel: string): Promise<LoginResponseType> =>
+      apiClient<LoginResponseType>('/auth/phone-verifications', {
+        method: 'POST',
+        body: JSON.stringify({ userName: tel }),
+      }),
 
-export const fetchProfile = (): Promise<LoginResponseType> => apiClient<LoginResponseType>('/auth/profile');
+    postPhoneVerification: (code: string): Promise<LoginResponseType> =>
+      apiClient<LoginResponseType>('/auth/phone-verifications/verify', {
+        method: 'POST',
+        body: JSON.stringify({ code }),
+      }),
 
-const authApi = {
-  login,
-  logout,
-  signup,
-  getPhoneVerification,
-  postPhoneVerification,
-  fetchProfile,
+    fetchProfile: (): Promise<LoginResponseType> => apiClient<LoginResponseType>('/auth/profile'),
+  };
 };
+
+const authApi = createAuthApi();
+export default authApi;
+
+export const createServerAuthApi = (serverToken: string) => createAuthApi({ serverToken });

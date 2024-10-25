@@ -1,26 +1,26 @@
 import { useMutation } from '@tanstack/react-query';
-import { getPhoneVerification, login, logout, postPhoneVerification, signup } from '../apis/auth';
+import authApi from '../apis/auth';
 
 export const useLogin = () => {
   return useMutation({
-    mutationFn: login,
+    mutationFn: authApi.login,
   });
 };
 
 export const useLogout = () => {
   return useMutation({
-    mutationFn: logout,
+    mutationFn: authApi.logout,
   });
 };
 
 export const useSignup = () => {
   return useMutation({
-    mutationFn: signup,
+    mutationFn: authApi.signup,
   });
 };
 
 export const usePhoneVerification = (type: 'get' | 'post') => {
-  const mutation = type === 'get' ? getPhoneVerification : postPhoneVerification;
+  const mutation = type === 'get' ? authApi.getPhoneVerification : authApi.postPhoneVerification;
   return useMutation({
     mutationFn: mutation,
   });

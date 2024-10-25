@@ -12,5 +12,13 @@ export const useStoryPreview = (storyId: string) => {
   return useSuspenseQuery({
     queryKey: storyKeys.preview(storyId),
     queryFn: () => storyApi.fetchStoryPreview(storyId),
+    select: (res) => res.data ?? [],
+    staleTime: Infinity,
+  });
+};
+
+export const useUpdateSummaryPage = (storyId: string) => {
+  return useMutation({
+    mutationFn: () => storyApi.updateSummaryPage(storyId),
   });
 };

@@ -44,8 +44,6 @@ export const loginAction = async (prevState: typeof initialState, formData: Form
     cookies().set('accessToken', accessToken, { maxAge: expirationTime, httpOnly: true });
     cookies().set('refreshToken', refreshToken, { maxAge: expirationTime, httpOnly: true });
 
-    console.log(cookies().getAll());
-
     return { message: 'SUCCESS', error: '', data: { ...data, accessToken } };
   } catch (error) {
     console.log(error);

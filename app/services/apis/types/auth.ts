@@ -18,6 +18,7 @@ export interface ISignupRequest {
 export interface IUser {
   userName: string;
   storyId: number;
+  token: string;
 }
 
 export type LoginResponseType = ApiResponse<IUser>;
