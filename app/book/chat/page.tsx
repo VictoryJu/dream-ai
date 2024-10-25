@@ -1,24 +1,26 @@
 'use client';
+import { useResetStory } from '@/app/services/queries/story';
 import { Button } from '@/components/ui/button';
+import ArrowTailIcon from '@/components/ui/icons/arrow-tail-icon';
 import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/use-toast';
+import { useDebounce } from '@/hooks/useDebounce';
+import useSocket from '@/hooks/useSocket';
+import { getAuthState } from '@/lib/stores/auth-store';
+import { shiftEnter } from '@/lib/utils/keyboard';
 import React, { KeyboardEvent, useEffect, useRef, useState } from 'react';
 import ChatMessage from './chat-message';
+import LoadingMessage from './loading-message';
 import SummaryCard from './summary-card';
-import useSocket from '@/hooks/useSocket';
-import ArrowTailIcon from '@/components/ui/icons/arrow-tail-icon';
-import storyApi from '@/app/services/apis/story';
-import { useAuthStore } from '@/lib/stores/auth-store';
-import { shiftEnter } from '@/lib/utils/keyboard';
-import { useDebounce } from '@/hooks/useDebounce';
-import { useResetStory } from '@/app/services/queries/story';
-import { useToast } from '@/hooks/use-toast';
 
 const Chat = () => {
   const [text, setText] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const { sendMessage, messages, isPending, resetMessages } = useSocket();
-  const { globalStoryId } = useAuthStore((state) => state);
+  const { storyId: globalStoryId } = getAuthState();
+
   const { mutate: resetStory } = useResetStory();
   const { toast } = useToast();
 
@@ -29,6 +31,10 @@ const Chat = () => {
     }
   }, 100);
 
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   const adjustHeight = () => {
     if (textareaRef.current) {
       const scrollHeight = textareaRef.current.scrollHeight;
@@ -37,10 +43,6 @@ const Chat = () => {
       textareaRef.current.style.height = `${Math.min(scrollHeight, maxHeight)}px`;
     }
   };
-
-  useEffect(() => {
-    adjustHeight();
-  }, [text]);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
@@ -68,9 +70,17 @@ const Chat = () => {
   const summaryDescription = messages.find((message) => message.isEnd)?.message;
   const shouldShowSummaryCard = !!summaryDescription;
 
+  useEffect(() => {
+    adjustHeight();
+  }, [text]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
   return (
     <div className={`pb-[50px] min-h-[calc(100dvh-120px)] flex flex-col justify-end`}>
-      <div className="flex flex-col gap-[20px] py-[30px]">
+      <div className="flex overflow-auto [&::-webkit-scrollbar]:hidden flex-col gap-[20px] py-[30px] max-h-[690px]">
         {messages.map(
           (messageInfo, idx) =>
             !messageInfo.isEnd && (
@@ -81,8 +91,9 @@ const Chat = () => {
               />
             ),
         )}
-        {isPending && <div className="w-full text-xl">AI가 메시지를 입력중입니다...</div>}
+        {isPending && <LoadingMessage />}
         {shouldShowSummaryCard && <SummaryCard description={summaryDescription} callback={handleResetMessages} />}
+        <div ref={messagesEndRef} />
       </div>
       <div className=" relative border py-[30px] border-gray-border rounded-[10px]">
         <Textarea
@@ -91,6 +102,7 @@ const Chat = () => {
           placeholder="메시지를 입력하세요"
           rows={1}
           value={text}
+          autoFocus
           onChange={handleChange}
           onKeyDown={handleShiftEnter}
         />
