@@ -1,5 +1,5 @@
 import Image from 'next/image';
-
+import Markdown from 'react-markdown';
 interface ChatMessageProps {
   message: string;
   isSender: boolean;
@@ -8,7 +8,7 @@ interface ChatMessageProps {
 const ChatMessage = ({ message, isSender }: ChatMessageProps) => {
   return (
     <div
-      className={`w-fit  flex items-center gap-[19px] rounded-[15px] p-[10px] ${
+      className={`animate-slideUp w-fit  flex items-center gap-[19px] rounded-[15px] p-[10px] ${
         isSender ? 'bg-purple-200' : 'bg-white self-end'
       }`}
     >
@@ -20,7 +20,7 @@ const ChatMessage = ({ message, isSender }: ChatMessageProps) => {
       <div
         className={`${isSender ? '' : 'py-[20px] px-[40px] text-right'} w-full text-[22px] font-semibold text-black-description break-keep`}
       >
-        {message}
+        <Markdown>{message}</Markdown>
       </div>
     </div>
   );
